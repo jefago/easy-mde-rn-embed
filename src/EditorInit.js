@@ -1,0 +1,1 @@
+var easyMDE = new EasyMDE({minHeight:'100vh', toolbar: false, status: false, inputStyle: 'contenteditable', cmOptions: {}});

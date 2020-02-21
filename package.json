@@ -21,6 +21,7 @@
     "dependencies": {
         "codemirror": "^5.51.0",
         "codemirror-spell-checker": "1.1.2",
+        "gulp-inject": "^5.0.5",
         "marked": "^0.8.0"
     },
     "devDependencies": {

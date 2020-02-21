@@ -1842,8 +1842,7 @@ EasyMDE.prototype.render = function (el) {
             addNew: false,
         };
     }
-
-    this.codemirror = CodeMirror.fromTextArea(el, {
+    var cmDefaultOptions = {
         mode: mode,
         backdrop: backdrop,
         theme: (options.theme != undefined) ? options.theme : 'easymde',
@@ -1860,7 +1859,9 @@ EasyMDE.prototype.render = function (el) {
         configureMouse: configureMouse,
         inputStyle: (options.inputStyle != undefined) ? options.inputStyle : isMobile() ? 'contenteditable' : 'textarea',
         spellcheck: (options.nativeSpellcheck != undefined) ? options.nativeSpellcheck : true,
-    });
+    };
+    var cmOptions = Object.assign({}, cmDefaultOptions, options.cmOptions || {});
+    this.codemirror = CodeMirror.fromTextArea(el, cmOptions);
 
     this.codemirror.getScrollerElement().style.minHeight = options.minHeight;
 
