@@ -11,7 +11,7 @@ const _log = function(message) {
 
 const messageActions = {
   SET_CONTENT: (data) => { if (data.content) { easyMDE.value(data.content); } },
-  GET_CONTENT: (data) => { postMessage({action: 'GET_CONTENT_RESPONSE', content: easyMDE.value()}) },
+  // GET_CONTENT: (data) => { postMessage({action: 'GET_CONTENT_RESPONSE', content: easyMDE.value()}) },
 //  REQUEST_WINDOW_HEIGHT: (data) => { postWindowHeight(); },
 //  BLUR: (data) => { easyMDE.codemirror.input.blur() },
 };
@@ -36,9 +36,15 @@ const handleResize = function() {
   easyMDE.codemirror.getScrollerElement().style.minHeight=`${document.documentElement.clientHeight}px`;
 }
 
+const handleChanges = function(instance, changes) {
+  postMessage({action: 'CHANGES_EVENT', content: easyMDE.value(), changes: changes});
+}
+
 document.addEventListener("message", handleIncomingMessage, false);
 window.addEventListener("message", handleIncomingMessage, false);
 
 window.addEventListener("resize", handleResize);
+
+easyMDE.codemirror.on("changes", handleChanges);
 
 handleResize();
