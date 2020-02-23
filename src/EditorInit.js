@@ -22,16 +22,12 @@ const postMessage = function(data) {
   window.ReactNativeWebView.postMessage(message);
 };
 
-const handleIncomingMessage = function(event) {
-//  _log(`Received message: ${event.data}`);
-  var msgData = JSON.parse(event.data), 
-    action = messageActions[msgData.action];
-  if (action) action(msgData);
-};
+const processMessage = function(message) {
+  action = messageActions[message.action];
+  if (action) action(message);
+}
 
 const handleResize = function() {
-  // document.getElementById('dim').firstChild.textContent = document.documentElement.clientHeight;
-  // document.getElementById('dim').style.height=`${document.documentElement.clientHeight}px`;
   document.getElementById('wrap').style.height=`${document.documentElement.clientHeight}px`;
   easyMDE.codemirror.getScrollerElement().style.minHeight=`${document.documentElement.clientHeight}px`;
 }
@@ -39,9 +35,6 @@ const handleResize = function() {
 const handleChanges = function(instance, changes) {
   postMessage({action: 'CHANGES_EVENT', content: easyMDE.value(), changes: changes});
 }
-
-document.addEventListener("message", handleIncomingMessage, false);
-window.addEventListener("message", handleIncomingMessage, false);
 
 window.addEventListener("resize", handleResize);
 
