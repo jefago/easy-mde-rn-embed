@@ -11,6 +11,14 @@ const _log = function(message) {
 
 const messageActions = {
   SET_CONTENT: (data) => { if (data.content) { easyMDE.value(data.content); } },
+  TOGGLE_STATE: (data) => { 
+    if (data.state) switch (data.state) {
+      case 'bold': easyMDE.toggleBold(); break;
+      case 'italic': easyMDE.toggleItalic(); break;
+      case 'ordered-list': easyMDE.toggleOrderedList(); break;
+      case 'unordered-list': easyMDE.toggleUnorderedList(); break;
+    }
+  }
   // GET_CONTENT: (data) => { postMessage({action: 'GET_CONTENT_RESPONSE', content: easyMDE.value()}) },
 //  REQUEST_WINDOW_HEIGHT: (data) => { postWindowHeight(); },
 //  BLUR: (data) => { easyMDE.codemirror.input.blur() },
@@ -36,8 +44,14 @@ const handleChanges = function(instance, changes) {
   postMessage({action: 'CHANGES_EVENT', content: easyMDE.value(), changes: changes});
 }
 
+const handleCursorActivity = function () {
+  var state = easyMDE.getState();
+  postMessage({action: 'SELECTION_CHANGED', ...state})
+}
+
 window.addEventListener("resize", handleResize);
 
 easyMDE.codemirror.on("changes", handleChanges);
+easyMDE.codemirror.on('cursorActivity', handleCursorActivity);
 
 handleResize();
