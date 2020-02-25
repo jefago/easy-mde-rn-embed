@@ -56,7 +56,8 @@ function styles() {
 function html() {
   return gulp.src('./src/EditorHTML.html')
   .pipe(inject(gulp.src(['./dist/*.css', './dist/*.js', './src/EditorInit.js']), {
-    starttag: '<!-- inject:{{path}} -->',
+    starttag: '/* inject:{{path}} */',
+    endtag: '/* endinject */',
     relative: true,
     transform: function (filePath, file) {
       // return file contents as string
