@@ -17,6 +17,8 @@ const messageActions = {
       case 'italic': easyMDE.toggleItalic(); break;
       case 'ordered-list': easyMDE.toggleOrderedList(); break;
       case 'unordered-list': easyMDE.toggleUnorderedList(); break;
+      case 'blockquote': easyMDE.toggleBlockquote(); break;
+      case 'codeBlock': easyMDE.toggleCodeBlock(); break;
     }
   }
   // GET_CONTENT: (data) => { postMessage({action: 'GET_CONTENT_RESPONSE', content: easyMDE.value()}) },
