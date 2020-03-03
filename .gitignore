@@ -11,3 +11,4 @@ node_modules/
 .idea/
 .vscode/
 dev_test/
+.DS_Store
